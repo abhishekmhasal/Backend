@@ -8,7 +8,7 @@ const app = require("./src/app");
 const mongoose = require("mongoose");
 
 function connectToDb() {
-  //mongoose connect 
+  //mongoose connect
     (() => {
       console.log(" connect to Database");
     });
