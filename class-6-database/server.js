@@ -8,8 +8,8 @@ const app = require("./src/app");
 const mongoose = require("mongoose");
 
 function connectToDb() {
-  //mongoose connect
-    (() => {
+  mongoose.connect("mongodb+srv://mhasalabhishek_db_user:xxuCaOWuQec9AC2k@cluster0.9oqk1n4.mongodb.net/class-6")
+   .then (() => {
       console.log(" connect to Database");
     });
 }
