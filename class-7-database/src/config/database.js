@@ -1,13 +1,9 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-
-function connectToDb(){
-  mongoose.connect(process.env.MONGO_URI)
-  .then(()=>{
+function connectToDb() {
+  mongoose.connect(process.env.MONGO_URI).then(() => {
     console.log("connect to db");
-    
-  })
+  });
 }
 
-
-module.exports = connectToDb
+module.exports = connectToDb;

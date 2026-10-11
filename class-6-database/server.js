@@ -2,7 +2,6 @@
 
 require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
 
-const { log } = require("node:console");
 const app = require("./src/app");
 
 const mongoose = require("mongoose");
