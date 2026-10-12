@@ -4,7 +4,7 @@ const App = () => {
   const [notes, setNotes] = useState([]);
 //get all notes 
   const fetchData = () => {
-    axios.get("http://localhost:3000/api/notes").then((res) => {
+    axios.get("https://backend-jeqo.onrender.com/api/notes").then((res) => {
       console.log(res.data);
       setNotes(res.data.notes);
     });
@@ -19,14 +19,14 @@ const App = () => {
     const { title , discription } = e.target.elements;
     console.log(title.value, discription.value);
 
-    axios.post("http://localhost:3000/api/notes",{title :title.value , discription:discription.value})
+    axios.post("https://backend-jeqo.onrender.com/api/notes",{title :title.value , discription:discription.value})
   .then((res)=>{
     console.log(res.data);
     fetchData()
   })  }
 //delete a notes
 function deleteHandle(noteId){
-axios.delete("http://localhost:3000/api/notes/"+noteId)
+axios.delete("https://backend-jeqo.onrender.com/api/notes/"+noteId)
 .then((res)=>{
   console.log(res.data);
   fetchData()
