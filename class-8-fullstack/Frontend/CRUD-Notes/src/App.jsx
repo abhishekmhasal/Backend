@@ -3,7 +3,7 @@ import axios from "axios";
 const App = () => {
   const [notes, setNotes] = useState([]);
 //get all notes 
-  const fetchData = () => {
+  const fetchData = () => 
     axios.get("https://backend-jeqo.onrender.com/api/notes").then((res) => {
       console.log(res.data);
       setNotes(res.data.notes);

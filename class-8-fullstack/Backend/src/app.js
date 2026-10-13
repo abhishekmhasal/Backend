@@ -5,10 +5,10 @@ const path = require("path"); // for wild card ka data run krne ke liye
 const app = express();
 app.use(express.static("./public"))  //all js and css file Aacess krene ke liye 
 app.use(cors()); // call cors 
-app.use(express.json());
+app.use(express.json());//middel ware for show req bodt data
 
 app.post("/api/notes", async (req, res) => {
-  const { title, discription } = req.body;
+  const { title, discription } = req.body
   const note = await noteModel.create({
     title,
     discription,
