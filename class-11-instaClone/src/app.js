@@ -13,6 +13,9 @@ const authRouter = require("../src/routes/auth.routes");
 
 app.use("/api/auth", authRouter);
 
+const postRouter = require("../src/routes/post.route")
+
+app.use("/api/posts",postRouter)
 
 
 module.exports = app;

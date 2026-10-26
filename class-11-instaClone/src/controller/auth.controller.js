@@ -1,6 +1,6 @@
 const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
+const bcrypt =require("bcryptjs")
 
 
 //logic code pura jata hai controller file ke andar
@@ -23,7 +23,7 @@ const crypto = require("crypto");
     });
   }
 
-  const hash = crypto.createHash("sha256").update(password).digest("hex");
+  const hash = await bcrypt.hash(password, 10)
 
   const user = await userModel.create({
     username,
@@ -53,6 +53,7 @@ const crypto = require("crypto");
       bio: user.bio,
       ProfileImage: user.ProfileImage,
     },
+    token
   });
 }
 
@@ -74,9 +75,7 @@ async function loginController(req, res){
       meassage: " user not found",
     });
   }
-
-  const hash = crypto.createHash("sha256").update(password).digest("hex");
-  const isPassword = hash === user.password;
+  const isPassword = await bcrypt.compare(password ,user.password)
   if (!isPassword) {
     res.status(409).json({
       meassage: " Invalid password",
