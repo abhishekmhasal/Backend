@@ -36,6 +36,7 @@ const bcrypt =require("bcryptjs")
   const token = jwt.sign(
     {
       id: user._id,
+      username: user.username
     },
     process.env.JWT_SCREATE,
     {
@@ -84,6 +85,7 @@ async function loginController(req, res){
   const token = jwt.sign(
     {
       id: user._id,
+      username : user.username
     },
     process.env.JWT_SCREATE,
     {

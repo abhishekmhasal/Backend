@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 async function identifire(req, res, next) {
   const token = req.cookies.token;
-  if (!token) {
+  if (!token){
     return res.status(401).json({
       meassage: " token not provided unauthried access",
     });

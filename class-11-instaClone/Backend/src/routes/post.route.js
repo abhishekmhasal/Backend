@@ -10,9 +10,12 @@ const identifire = require("../middleware/auth.middle")
 
 postRouter.post("/",upload.single("image"),identifire ,postController.postCreate)
 
+// all post  api/posts/
 postRouter.get("/" ,identifire ,postController.getPostController)
 // get api/posts/details/:postId
 // returm an detils about specific post with id alslo chekc whethe the post belongs to the user that the request come from 
 postRouter.get("/details/:postId" ,identifire ,postController.getPostDeatailController)
 
+//like  api = api/:postId/
+postRouter.post("/like/:postId",identifire,postController.likePostController)
 module.exports = postRouter
