@@ -11,16 +11,6 @@ const [password, setpassword] = useState('')
  async function submitHandler(e){
   e.preventDefault()
 
-
-  axios.post("http://localhost:3000/api/auth/register",{
-    username,email,password
-  },{
-    withCredentials: true
-  })
-.then(res=>{
-  console.log(res.data);
-  
-})
 }
 
 

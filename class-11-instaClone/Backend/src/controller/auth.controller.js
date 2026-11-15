@@ -1,12 +1,11 @@
 const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
-const bcrypt =require("bcryptjs")
-
+const bcrypt = require("bcryptjs");
+const { get } = require("../routes/auth.routes");
 
 //logic code pura jata hai controller file ke andar
 
-
-  async function registerController(req, res){
+async function registerController(req, res) {
   const { username, email, password, bio, ProfileImage } = req.body;
 
   const userAlreadyExist = await userModel.findOne({
@@ -23,7 +22,7 @@ const bcrypt =require("bcryptjs")
     });
   }
 
-  const hash = await bcrypt.hash(password, 10)
+  const hash = await bcrypt.hash(password, 10);
 
   const user = await userModel.create({
     username,
@@ -36,7 +35,7 @@ const bcrypt =require("bcryptjs")
   const token = jwt.sign(
     {
       id: user._id,
-      username: user.username
+      username: user.username,
     },
     process.env.JWT_SCREATE,
     {
@@ -54,21 +53,21 @@ const bcrypt =require("bcryptjs")
       bio: user.bio,
       ProfileImage: user.ProfileImage,
     },
-    token
+    token,
   });
 }
 
-async function loginController(req, res){
+async function loginController(req, res) {
   const { username, email, password } = req.body;
 
   const user = await userModel.findOne({
-    $or:[
-        { 
-        username: username
-        },
-        {
-          email:email
-        },
+    $or: [
+      {
+        username: username,
+      },
+      {
+        email: email,
+      },
     ],
   });
   if (!user) {
@@ -76,7 +75,7 @@ async function loginController(req, res){
       meassage: " user not found",
     });
   }
-  const isPassword = await bcrypt.compare(password ,user.password)
+  const isPassword = await bcrypt.compare(password, user.password);
   if (!isPassword) {
     res.status(409).json({
       meassage: " Invalid password",
@@ -85,7 +84,7 @@ async function loginController(req, res){
   const token = jwt.sign(
     {
       id: user._id,
-      username : user.username
+      username: user.username,
     },
     process.env.JWT_SCREATE,
     {
@@ -101,12 +100,27 @@ async function loginController(req, res){
       id: user.id,
       email: user.email,
       username: user.username,
-      bio: user._bio,
+      bio: user.bio,
       ProfileImage: user.ProfileImage,
     },
   });
 }
 
-module.exports = {
-  registerController,loginController
+async function getController(req, res) {
+  const userId = req.user.id;
+  const user = await userModel.findById(userId);
+
+  res.status(201).json({
+    user: {
+      username: user.username,
+      email: user.email,
+      bio: user.bio,
+      profileImage: user.ProfileImage,
+    },
+  });
 }
+module.exports = {
+  registerController,
+  loginController,
+  getController
+};
