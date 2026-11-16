@@ -1,20 +1,26 @@
 import { useState } from "react";
 import "./styles/form.scss";
-import { Link } from "react-router";
-import axios from "axios";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../hookes/useAuth";
+
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-const [username, setUsername] = useState('')
-const [password, setPassword] = useState('')
+  const { handleLogin, loading } = useAuth();
+  const navigate = useNavigate();
 
+  if (loading) {
+    return <h1>Loading....</h1>;
+  }
+  async function submitHandler(e) {
+    e.preventDefault();
 
-async function submitHandler(e){
-  e.preventDefault()
-
-  
- }
-}
-
+    handleLogin(username, password).then((res) => {
+      console.log(res);
+      navigate("/");
+    });
+  }
 
   return (
     <main>
@@ -22,9 +28,23 @@ async function submitHandler(e){
         <h1>Login</h1>
 
         <form onSubmit={submitHandler}>
-          <input onInput={(e)=>{setUsername(e.target.value)}} type="text" name="Username" placeholder="Enter username" />
+          <input
+            onInput={(e) => {
+              setUsername(e.target.value);
+            }}
+            type="text"
+            name="Username"
+            placeholder="Enter username"
+          />
 
-          <input onInput={(e)=>{setPassword(e.target.value)}} type="text" name="password" placeholder="enter Password" />
+          <input
+            onInput={(e) => {
+              setPassword(e.target.value);
+            }}
+            type="text"
+            name="password"
+            placeholder="enter Password"
+          />
           <button type="submit"> Login </button>
         </form>
         <p>
